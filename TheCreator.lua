@@ -1,10 +1,37 @@
 function read()
    input = io.read()
 end
+function check()
+	if price == nil then
+		price = " "
+		end
+	if idnumber == nil then
+		idnumber = " "
+		end
+	if amount == nil then
+		amount = " "
+		end
+end
+Accept = "No"
 multiple = "Y" --Y if there is going to be more than one item
+iq = "Off" --Off if the reward type is "Item"
+pt = "Off" --Off if the price type is "Money"
+f = 1
+tArgs = {...}
+if Accept == "No" then
+		if #tArgs ~= 1 then
+				print( "Usage: Bossshop.lua [# of items]" )
+				return
+		end		
+		nf = tArgs[1]		
+		end		
+if Accept == "Yes" then
+		nf = 26
+		end
+tonumber(nf)
 print("Welcome to the BossShop shop creator!") --26 items
 c = 0
-for i=1,26 do 
+for i=1,nf do 
         print("Item name:")
         read()
         nameofitem = input
@@ -22,6 +49,7 @@ for i=1,26 do
 		if iq == "On" then
 			print("Reward type: (Item)")
 			read()
+			item = input
 			end
 		if iq == "Off" then	
 			item = "Item"
@@ -29,6 +57,7 @@ for i=1,26 do
 		if pt == "On" then
 			print("Price type: (Money)")
 			read()
+			money = input
 			end
 		if pt == "Off" then
 			money = "Money"
@@ -45,10 +74,16 @@ for i=1,26 do
         string.lower(name)
         print("How much money for one "..name.." ?")
         read()
-        price = input
-        price = price * amount
+		if type(input) == "number" then
+			print(input)
+			price = input
+			end
+		if price ~= nil then
+			price = price * amount
+			end
         perm = nil
         il = c + 1
+		check()
         print("  "..nameofitem..":")
         print("    RewardType: "..item)
         print("    PriceType: "..money)
@@ -103,10 +138,13 @@ for i=1,26 do
         file:flush()
         file:close()
         print(nameofitem.." added")
-        print("Would you like to add another item?")
-        read()
-        if input == "No" then
+		f = f + 1
+		if f > 2 then
+			print("Would you like to add another item?")
+			read()
+			if input == "No" then
                 print("Program terminated.")
                 break
-        end
-end	
+			end
+		end	
+	end	
