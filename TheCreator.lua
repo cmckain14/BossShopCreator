@@ -98,5 +98,10 @@ for i=1,26 do
 	file:write("    ExtraPermission: \n")
 	file:flush()
 	file:close()
-	print("Logging complete.")
+	print(nameofitem.." added")
+	print("Would you like to add another item?")
+	read()
+	if input == "No" then
+		print("Program terminated.")
+		break
 	end
